@@ -24,4 +24,18 @@ public class PutController {
 
         return sb.toString();
     }
+
+    // PUT 호출 시 request 파라미터(?name=value1&email=...)를 참고하여 DTO에 관련 정보들을 저장
+    // MemberDto 객체 정보를 문자열로 반환
+    @PutMapping(value="/request2")
+    public String putMemberDto(@RequestBody MemberDto memberDto) {
+        return memberDto.toString();
+    }
+
+    // PUT 호출 시 request 파라미터(?name=value1&email=...)를 참고하여 DTO에 관련 정보들을 저장
+    // MemberDto 객체를 반환
+    @PutMapping(value="/request3")
+    public MemberDto putMemberDto2(@RequestBody MemberDto memberDto) {
+        return memberDto;
+    }
 }
