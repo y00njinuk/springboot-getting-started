@@ -1,6 +1,8 @@
 package com.tutorial.api.controller;
 
 import com.tutorial.api.dto.MemberDto;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,5 +39,14 @@ public class PutController {
     @PutMapping(value="/request3")
     public MemberDto putMemberDto2(@RequestBody MemberDto memberDto) {
         return memberDto;
+    }
+
+    // PUT 호출 시 request 파라미터(?name=value1&email=...)를 참고하여 DTO에 관련 정보들을 저장
+    // ResponseEnitty를 활용하여 응답 객체를 생성하고 관련 정보를 생성하여 반환
+    @PutMapping(value = "/request4")
+    public ResponseEntity<MemberDto> postMemberDto3(@RequestBody MemberDto memberDto) {
+        return ResponseEntity
+                .status(HttpStatus.ACCEPTED)
+                .body(memberDto);
     }
 }
