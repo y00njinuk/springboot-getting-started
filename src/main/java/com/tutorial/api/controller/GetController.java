@@ -1,5 +1,6 @@
 package com.tutorial.api.controller;
 
+import com.tutorial.api.dto.MemberDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -34,5 +35,11 @@ public class GetController {
         );
 
         return sb.toString();
+    }
+
+    // Get 호출 시 request 파라미터(?name=value1&email=...)를 참고하여 DTO에 관련 정보들을 저장
+    @GetMapping(value = "/request3")
+    public String getRequestParamsToDto(MemberDto memberDto) {
+        return memberDto.toString();
     }
 }
