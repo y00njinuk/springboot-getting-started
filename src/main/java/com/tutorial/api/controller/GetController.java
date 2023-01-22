@@ -21,4 +21,18 @@ public class GetController {
 
         return variable;
     }
+
+    // Get 호출 시 request 파라미터(?key1=value1&key2=...)를 참고하여 Map 컬렉션에 관련 정보들을 저장
+    @GetMapping(value = "/request2")
+    public String getRequestParams(@RequestParam Map<String, String> params) {
+        StringBuilder sb = new StringBuilder();
+
+        params.entrySet().forEach (
+                map -> {
+                    sb.append(map.getKey() + " : " + map.getValue() + "\n");
+                }
+        );
+
+        return sb.toString();
+    }
 }
