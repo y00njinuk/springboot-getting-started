@@ -34,7 +34,7 @@ public class GetController {
 
     // Get 호출 시 request 파라미터(?name=value1&email=...)를 참고하여 DTO에 관련 정보들을 저장
     @GetMapping(value = "/request3")
-    public String getRequestParamsToDto(MemberDto memberDto) {
-        return memberDto.toString();
+    public MemberDto getRequestParamsToDto(MemberDto memberDto) {
+        return memberDto;
     }
 }
