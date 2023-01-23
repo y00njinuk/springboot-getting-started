@@ -1,5 +1,7 @@
 package com.tutorial.api.dto;
 
+import java.util.Objects;
+
 public class MemberDto {
     private String name;
     private String email;
@@ -36,5 +38,18 @@ public class MemberDto {
                 ", email='" + email + '\'' +
                 ", organization='" + organization + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MemberDto memberDto = (MemberDto) o;
+        return Objects.equals(name, memberDto.name) && Objects.equals(email, memberDto.email) && Objects.equals(organization, memberDto.organization);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, email, organization);
     }
 }
