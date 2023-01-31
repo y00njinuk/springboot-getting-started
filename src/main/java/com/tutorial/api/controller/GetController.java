@@ -24,7 +24,7 @@ public class GetController {
         return variable;
     }
 
-    // Get 호출 시 request 파라미터(?key1=value1&key2=...)를 참고하여 Map 컬렉션에 관련 정보들을 저장
+    // GET 호출 시 request 파라미터(?key1=value1&key2=...)를 참고하여 Map 컬렉션에 관련 정보들을 저장
     @GetMapping(value = "/request2")
     public String getRequestParams(@RequestParam Map<String, String> params) {
         JSONObject jsonObject = new JSONObject(params);
@@ -32,7 +32,7 @@ public class GetController {
         return jsonObject.toString();
     }
 
-    // Get 호출 시 request 파라미터(?name=value1&email=...)를 참고하여 DTO에 관련 정보들을 저장
+    // GET 호출 시 request 파라미터(?name=value1&email=...)를 참고하여 DTO에 관련 정보들을 저장
     @GetMapping(value = "/request3")
     public MemberDto getRequestParamsToDto(MemberDto memberDto) {
         return memberDto;
