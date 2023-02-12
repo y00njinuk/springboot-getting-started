@@ -5,20 +5,17 @@ import com.springboot.tutorial.dto.ProductDto;
 import com.springboot.tutorial.dto.ProductResponseDto;
 import com.springboot.tutorial.repository.entity.Product;
 import com.springboot.tutorial.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
+@RequiredArgsConstructor // final 필드를 파라미터로 가지는 생성자 생성
 public class ProductServiceImpl implements ProductService {
 
     private final ProductDAO productDAO;
-
-    @Autowired
-    public ProductServiceImpl(ProductDAO productDAO) {
-        this.productDAO = productDAO;
-    }
 
     @Override
     public ProductResponseDto getProduct(Long number) {

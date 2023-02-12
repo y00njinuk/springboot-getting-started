@@ -4,20 +4,16 @@ import com.springboot.tutorial.dto.ChangeProductNameDto;
 import com.springboot.tutorial.dto.ProductDto;
 import com.springboot.tutorial.dto.ProductResponseDto;
 import com.springboot.tutorial.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product")
+@RequiredArgsConstructor // final 필드를 파라미터로 가지는 생성자 생성
 public class ProductController {
     private final ProductService productService;
-
-    @Autowired
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
 
     @GetMapping
     public ResponseEntity<ProductResponseDto> getProduct(Long number) {

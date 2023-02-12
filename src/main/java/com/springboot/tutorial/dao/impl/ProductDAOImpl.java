@@ -3,21 +3,17 @@ package com.springboot.tutorial.dao.impl;
 import com.springboot.tutorial.dao.ProductDAO;
 import com.springboot.tutorial.repository.ProductRepository;
 import com.springboot.tutorial.repository.entity.Product;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Component
+@RequiredArgsConstructor // final 필드를 파라미터로 가지는 생성자 생성
 public class ProductDAOImpl implements ProductDAO {
 
     private final ProductRepository productRepository;
-
-    @Autowired
-    public ProductDAOImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
     @Override
     public Product insertProduct(Product product) {

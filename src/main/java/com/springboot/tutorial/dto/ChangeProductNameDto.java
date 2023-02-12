@@ -1,19 +1,15 @@
 package com.springboot.tutorial.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor // 클래스의 모든 필드를 파라미터로 가지는 생성자 생성
+@NoArgsConstructor  // 파라미터가 없는 생성자 생성
 public class ChangeProductNameDto {
     private Long number;
     private String name;
-
-    public ChangeProductNameDto(Long number, String name) {
-        this.number = number;
-        this.name = name;
-    }
-
-    public ChangeProductNameDto() {
-    }
 }

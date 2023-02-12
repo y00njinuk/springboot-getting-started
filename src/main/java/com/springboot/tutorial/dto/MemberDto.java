@@ -1,25 +1,20 @@
 package com.springboot.tutorial.dto;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Objects;
 
 @Getter
 @Setter
+@ToString // toString 메서드를 자동으로 생성
+@EqualsAndHashCode // 객체의 동등성(equality)과 동일성(Identity)를 비교하는 equals 메서드 생성
 public class MemberDto {
     private String name;
     private String email;
     private String organization;
-
-    @Override
-    public String toString() {
-        return "MemberDto{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", organization='" + organization + '\'' +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {
