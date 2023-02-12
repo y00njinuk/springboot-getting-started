@@ -20,6 +20,7 @@
         </encoder>
     </appender>
 
+ <!--
     <appender name="INFO_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>INFO</level>
@@ -36,17 +37,18 @@
             </pattern>
         </encoder>
     </appender>
+-->
 
     <!-- Root Logger : 최상위 로그 레벨 설정 영역 -->
     <root level="INFO">
         <appender-ref ref="console"/>
-        <appender-ref ref="INFO_LOG"/>
+<!--        <appender-ref ref="INFO_LOG"/>-->
     </root>
 
     <!-- 단, 아래와 같이 특정 패키지에 대해 다른 로깅 레벨을 설정하고 싶으면 logger 를 활용한다. -->
     <logger name="com.tutorial.api.controller" level="DEBUG" additivity="false">
         <appender-ref ref="console"/>
-        <appender-ref ref="INFO_LOG"/>
+<!--        <appender-ref ref="INFO_LOG"/>-->
     </logger>
 
 </configuration>
