@@ -1,6 +1,6 @@
-package com.tutorial.api.controller;
+package com.springboot.tutorial.controller;
 
-import com.tutorial.api.dto.MemberDto;
+import com.springboot.tutorial.dto.MemberDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;

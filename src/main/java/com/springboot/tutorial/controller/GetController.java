@@ -1,6 +1,6 @@
-package com.tutorial.api.controller;
+package com.springboot.tutorial.controller;
 
-import com.tutorial.api.dto.MemberDto;
+import com.springboot.tutorial.dto.MemberDto;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

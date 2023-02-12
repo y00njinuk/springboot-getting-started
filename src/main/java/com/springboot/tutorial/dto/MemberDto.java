@@ -1,4 +1,4 @@
-package com.tutorial.api.dto;
+package com.springboot.tutorial.dto;
 
 import java.util.Objects;
 

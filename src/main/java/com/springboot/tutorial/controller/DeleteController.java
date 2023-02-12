@@ -1,4 +1,4 @@
-package com.tutorial.api.controller;
+package com.springboot.tutorial.controller;
 
 import org.springframework.web.bind.annotation.*;
 
