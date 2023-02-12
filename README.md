@@ -1,2 +1,2 @@
-# springboot-tutorial-2
+# springboot-getting-started
 for tutorial using spring boot
