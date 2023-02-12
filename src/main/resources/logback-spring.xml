@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <property name="LOG_PATH" value="./logs"/>
+
+    <!-- Appender : 로그의 형태를 설정하고 어떤 방법으로 출력하는지 결정하는 단계 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- Filter : 임의로 생성한 복잡한 로그 필터링 정책을 조립하겨 연결 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <!-- ThresholdFilter : 임계점(threshold)에 대하여 로그 이벤트를 필터링 -->
+            <!-- TRACE > DEBUG > INFO > WARN > ERROR > OFF -->
+            <level>INFO</level>
+        </filter>
+
+        <!-- Encoder : 로그의 표현 형식을 패턴(pattern)으로 정의 -->
+        <encoder>
+            <pattern>
+                <!-- 로그기록시간[yyyy-MM-dd HH:mm:ss.SSS] [로그레벨] [현재스레드명] 로거(Logger)이름 로그메시지 \n -->
+                [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%thread] %logger %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="INFO_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <file>${LOG_PATH}/info.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/info_${type}.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%thread] %logger %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- Root Logger : 최상위 로그 레벨 설정 영역 -->
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <appender-ref ref="INFO_LOG"/>
+    </root>
+
+    <!-- 단, 아래와 같이 특정 패키지에 대해 다른 로깅 레벨을 설정하고 싶으면 logger 를 활용한다. -->
+    <logger name="com.tutorial.api.controller" level="DEBUG" additivity="false">
+        <appender-ref ref="console"/>
+        <appender-ref ref="INFO_LOG"/>
+    </logger>
+
+</configuration>
