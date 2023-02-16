@@ -55,4 +55,33 @@ public class ProductControllerTest {
         // 지정된 메서드가 정상적으로 실행되었는지 확인한다.
         verify(productService).getProduct(123L);
     }
+
+    @Test
+    @DisplayName("MockMvc를 통하여 Product 데이터가 정상적으로 생성되었는지 확인한다.")
+    void createProduct() throws Exception {
+        given(productService.saveProduct(new ProductDto("pen", 5000, 2000)))
+                .willReturn(new ProductResponseDto(12315L, "pen", 5000, 2000));
+
+        ProductDto productDto = ProductDto.builder()
+                .name("pen")
+                .price(5000)
+                .stock(2000)
+                .build();
+
+        Gson gson = new Gson();
+        String content = gson.toJson(productDto);
+
+        mockMvc.perform(
+                        post("/product")
+                                .content(content)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.number").exists())
+                .andExpect(jsonPath("$.name").exists())
+                .andExpect(jsonPath("$.price").exists())
+                .andExpect(jsonPath("$.stock").exists())
+                .andDo(print());
+
+        verify(productService).saveProduct(new ProductDto("pen", 5000, 2000));
+    }
 }
