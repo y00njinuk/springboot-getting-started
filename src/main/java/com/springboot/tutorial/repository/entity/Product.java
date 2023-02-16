@@ -1,17 +1,21 @@
 package com.springboot.tutorial.repository.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Builder
 @Getter
 @Setter
 @Entity // 해당 클래스가 엔티티임을 명시하며 테이블과의 관게는 1:1이다.
         // 해당 클래스의 인스턴스는 매핑되는 테이블에서 하나의 레코드를 의미한다.
         // 엔티티 클래스의 필드는 테이블의 칼럼과 매핑된다.
 @Table(name="product")  // 클래스의 이름과 테이블의 이름이 다른 경우 해당 어노테이션을 사용하여 테이블을 지정한다.
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+@ToString(exclude = "name")
 public class Product {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 해당 필드의 값을 어떤 방식으로 자동으로 생성할지 결정할 때 사용
