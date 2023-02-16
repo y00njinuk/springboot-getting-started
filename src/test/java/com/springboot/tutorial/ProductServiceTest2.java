@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
@@ -23,15 +22,17 @@ import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith(SpringExtension.class) // JUnit5의 테스트에서 스프링 테스트 컨텍스트를 사용하도록 설정
+                                   // Jupiter 테스트에 스프링 테스트 컨텍스트 프레임워크를 통합
 @Import({ProductServiceImpl.class})
 @SpringBootTest
 public class ProductServiceTest2 {
 
-    @MockBean
+    @MockBean // 스프링에서 제공하는 테스트 어노테이션을 통해 Mock 객체를 생성하고 의존성을 주입한다.
+              // @MockBean은 스프링에 Mock 객체를 등록해서 주입하는 형식이다.
     ProductRepository productRepository;
 
-    @Autowired
+    @Autowired // Import 어노테이션으로 선언된 클래스와 매핑하여 productService에 의존성 주입
     ProductService productService;
 
     @Test

@@ -18,6 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 public class ProductServiceTest {
+    // Mockito.mock()을 사용하는 방식은 스프링 빈에 등록하지 않고 직접 객체를 초기화해서 사용
     private ProductRepository productRepository = Mockito.mock(ProductRepository.class);
     private ProductServiceImpl productService;
 
