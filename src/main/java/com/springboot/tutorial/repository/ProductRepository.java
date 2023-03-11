@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 // JpaRepository 상속 시 타입변수는 다음과 같다. <대상엔티티, 기본값타입>
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long>, QProductRepositoryCustom {
     // JpaRepository에서 구현되어 있는 메소드들을 활용할 수 있다.
     // Question) Override 구현 시에는 어떻게 할까?
 
