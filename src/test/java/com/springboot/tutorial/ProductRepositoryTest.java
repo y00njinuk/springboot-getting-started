@@ -19,7 +19,6 @@ import org.springframework.data.domain.Sort.Order;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -178,5 +177,19 @@ public class ProductRepositoryTest {
             System.out.println("Product Stock : " + product.getStock());
             System.out.println("----------------------------");
         }
+    }
+
+    @Test
+    @DisplayName("Auditing 기능이 적용된 Product 엔티티의 createdAt 컬럼을 조회한다.")
+    public void auditingTest() {
+        Product product = new Product();
+        product.setName("펜");
+        product.setPrice(1000);
+        product.setStock(100);
+
+        Product savedProduct = productRepository.save(product);
+
+        System.out.println("productName : " + savedProduct.getName());
+        System.out.println("createdAt : " + savedProduct.getCreatedAt());
     }
 }
