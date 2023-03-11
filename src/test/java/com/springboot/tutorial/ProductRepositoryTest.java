@@ -40,9 +40,9 @@ public class ProductRepositoryTest {
     @BeforeEach
     void setUp() {
         List<Product> products = Arrays.asList(
-                new Product(1L, "펜", 1000, 100, LocalDateTime.now(), LocalDateTime.now()),
-                new Product(2L, "펜", 5000, 300, LocalDateTime.now(), LocalDateTime.now()),
-                new Product(3L, "펜", 500, 50, LocalDateTime.now(), LocalDateTime.now())
+                new Product(1L, "펜", 1000, 100),
+                new Product(2L, "펜", 5000, 300),
+                new Product(3L, "펜", 500, 50)
 
         );
         productRepository.saveAll(products);

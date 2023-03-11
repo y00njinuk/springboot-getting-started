@@ -3,7 +3,6 @@ package com.springboot.tutorial.repository.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Builder
 @Getter
@@ -14,9 +13,9 @@ import java.time.LocalDateTime;
 @Table(name="product")  // 클래스의 이름과 테이블의 이름이 다른 경우 해당 어노테이션을 사용하여 테이블을 지정한다.
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-@ToString(exclude = "name")
-public class Product {
+@EqualsAndHashCode(callSuper = true) // 상위 클래스의 필드도 포함할 수 있도록 한다.
+@ToString(exclude = "name", callSuper = true)
+public class Product extends BaseEntity {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 해당 필드의 값을 어떤 방식으로 자동으로 생성할지 결정할 때 사용
                                                         // IDENTITY: 기본값 생성을 데이터베이스에 위임하며 AUTO_INCREMENT를 사용해 자동 생성
@@ -37,7 +36,4 @@ public class Product {
 
     @Column(nullable = false)
     private Integer stock;
-
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 }
