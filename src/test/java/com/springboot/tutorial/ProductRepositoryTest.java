@@ -6,13 +6,13 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.springboot.tutorial.repository.ProductRepository;
 import com.springboot.tutorial.repository.entity.Product;
 import com.springboot.tutorial.repository.entity.QProduct;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -27,14 +27,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@DataJpaTest // JPA와 관련된 설정만 로드해서 테스트를 진행한다.
-             // @Transactional 어노테이션을 포함하고 있어서 테스트 코드 종료 시 데이터베이스가 롤백된다.
-             // 기본값으로 임베디드 데이터베이스를 사용한다. 다른 데이터베이스는 별도의 설정을 거쳐서 사용 가능하다.
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // 해당 설정 적용 시 애플리케이션에서 실제로 사용하는 데이터베이스로 테스트로 변경 가능
+@SpringBootTest
 @Transactional
 public class ProductRepositoryTest {
     @PersistenceContext
     EntityManager entityManager;
+
+    @Autowired
+    private JPAQueryFactory jpaQueryFactory;
 
     @Autowired
     private ProductRepository productRepository;
@@ -125,7 +125,6 @@ public class ProductRepositoryTest {
     @Transactional
     @DisplayName("QueryDSL-JPAQueryFactory을 활용하여 쿼리를 생성하고 결과를 확인한다.")
     void queryDslTest2() {
-        JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(entityManager);
         QProduct qProduct = QProduct.product;
 
         List<Product> productList = jpaQueryFactory.selectFrom(qProduct)
