@@ -162,6 +162,13 @@ public class ProductRepositoryTest {
         }
     }
 
+    @Test
+    @DisplayName("QuerydslRepositorySupport 을 상속받은 Impl 클래스의 인터페이스를 활용하여 결과를 조회한다.")
+    void findByNameTest() {
+        List<Product> productList = productRepository.findByName("펜");
+        printProuductList(productList);
+    }
+
     private void printProuductList(List<Product> productList) {
         for (Product product : productList) {
             System.out.println("----------------------------");
