@@ -10,8 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -118,7 +116,7 @@ public class ProductRepositoryTest {
                 .orderBy(qProduct.price.asc())
                 .fetch();
 
-        printProudctList(productList);
+        printProuductList(productList);
     }
 
     @Test
@@ -132,7 +130,7 @@ public class ProductRepositoryTest {
                 .orderBy(qProduct.price.asc())
                 .fetch();
 
-        printProudctList(productList);
+        printProuductList(productList);
 
         // 전체 칼럼이 아닌 일부 칼럼만을 조회하는 것도 가능하다.
 
@@ -164,7 +162,7 @@ public class ProductRepositoryTest {
         }
     }
 
-    private void printProudctList(List<Product> productList) {
+    private void printProuductList(List<Product> productList) {
         for (Product product : productList) {
             System.out.println("----------------------------");
             System.out.println("Product Number : " + product.getNumber());
@@ -174,5 +172,4 @@ public class ProductRepositoryTest {
             System.out.println("----------------------------");
         }
     }
-
 }
