@@ -36,4 +36,14 @@ public class Product extends BaseEntity {
 
     @Column(nullable = false)
     private Integer stock;
+
+    @OneToOne
+    private ProductDetail productDetail;
+
+    public Product(Long number, String name, Integer price, Integer stock) {
+        this.number = number;
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+    }
 }
