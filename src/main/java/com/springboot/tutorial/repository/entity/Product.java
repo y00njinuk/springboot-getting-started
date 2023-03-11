@@ -14,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true) // 상위 클래스의 필드도 포함할 수 있도록 한다.
-@ToString(exclude = "name", callSuper = true)
+@ToString(callSuper = true)
 public class Product extends BaseEntity {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 해당 필드의 값을 어떤 방식으로 자동으로 생성할지 결정할 때 사용
@@ -29,6 +29,7 @@ public class Product extends BaseEntity {
                               // nullable: 레코드를 생성할 때 칼럼 값에 null 처리가 가능한지 명시
                               // length: 데이터베이스에 저장하는 데이터의 최대 길이 설정
                               // unique: 해당 컬럼을 유니크로 설정
+    @ToString.Exclude
     private String name;
 
     @Column(nullable = false)
@@ -37,7 +38,11 @@ public class Product extends BaseEntity {
     @Column(nullable = false)
     private Integer stock;
 
-    @OneToOne
+    @OneToOne(mappedBy = "product") // 외래키의 주체를 설정 (즉, ProductDetail 엔티티의 외래키가 실제 외래키)
+    @ToString.Exclude   // ProductDetail 엔티티의 toString 호출 ->
+                        // Product 엔티티의 toString 호출 ->
+                        // ProductDetail 엔티티의 toString 호출 ->
+                        // 무한 반복.. 방지
     private ProductDetail productDetail;
 
     public Product(Long number, String name, Integer price, Integer stock) {
