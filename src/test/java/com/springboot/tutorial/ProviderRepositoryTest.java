@@ -30,7 +30,7 @@ public class ProviderRepositoryTest {
     }
 
     @Test
-    @DisplayName("연관관계를 가지는 엔티티들을 대상으로 테스트 데이터를 생성하여 데이터베이스에 저장한 후 결과를 확인한다.")
+    @DisplayName("연관관계를 가진 엔티티를 조회하였을 때 Join 연산이 정상적으로 수행되어 결과를 반환한다.")
     void relationshipTest() {
         Provider provider = new Provider();
         provider.setName("ㅇㅇ물산");
