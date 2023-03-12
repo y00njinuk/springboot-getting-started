@@ -22,6 +22,7 @@ public class ProducerRepositoryTest {
     @AfterEach
     @DisplayName("테스트가 종료되면 데이터베이스에 저장된 데이터를 삭제한다.")
     void tearDown(TestInfo info) {
+        // TODO. 영속성 전이 및 데이터베이스 작업시 외래키 제약 조건을 해결할 수 있는 방안 마련
         if(info.getTags().contains("SkipAfter"))
             return;
 
