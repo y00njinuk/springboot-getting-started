@@ -8,6 +8,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -83,6 +84,39 @@ public class ProviderRepositoryTest {
         provider.setName(name);
 
         return provider;
+    }
+
+    @Test
+    @Tag("SkipAfter")
+    @Transactional
+    @DisplayName("고아 객체가 발생하였을 때 연관관계를 가진 다른 엔티티에서도 해당 객체를 삭제할 수 있어야 한다.")
+    void orphanRemovalRest() {
+        Provider provider = savedProvider("새로운 공급업체");
+
+        Product product1 = savedProduct("상품1", 1000, 1000);
+        Product product2 = savedProduct("상품2", 500, 1500);
+        Product product3 = savedProduct("상품3", 750, 500);
+
+        product1.setProvider(provider);
+        product2.setProvider(provider);
+        product3.setProvider(provider);
+
+        provider.getProduct().addAll(List.of(product1, product2, product3));
+
+        providerRepository.saveAndFlush(provider);
+
+        providerRepository.findAll().forEach(System.out::println);
+        productRepository.findAll().forEach(System.out::println);
+
+        // Provider 엔티티를 조회하고 해당 엔티티에 대한 Product 정보를 모두 초기화 시킨다.
+        Provider foundProvider = providerRepository.findById(1L).get();
+        foundProvider.getProduct().clear();
+
+        assertThat(providerRepository.findById(1L).get().getProduct()).isEmpty();
+
+        // Provider 엔티티와 연관관계인 Product 엔티티를 조회하였을 때도 결과가 존재하지 않게 된다.
+        // Provider 엔티티에 orphanRemoval = true 설정이 적용되어있기에 가능하다.
+        assertThat(productRepository.findAll()).isEmpty();
     }
 
     private Product savedProduct(String name, Integer price, Integer stock) {
