@@ -3,6 +3,8 @@ package com.springboot.tutorial.repository.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @Getter
@@ -49,6 +51,14 @@ public class Product extends BaseEntity {
     @JoinColumn(name = "provider_id")
     @ToString.Exclude
     private Provider provider;
+
+    @ManyToMany
+    @ToString.Exclude
+    private List<Producer> producers = new ArrayList<>();
+
+    public void addProducer(Producer producer) {
+        this.producers.add(producer);
+    }
 
     public Product(Long number, String name, Integer price, Integer stock) {
         this.number = number;
