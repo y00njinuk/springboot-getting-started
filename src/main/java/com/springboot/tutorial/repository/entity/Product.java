@@ -52,7 +52,7 @@ public class Product extends BaseEntity {
     @ToString.Exclude
     private Provider provider;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @ToString.Exclude
     private List<Producer> producers = new ArrayList<>();
 
