@@ -47,7 +47,7 @@ public class Product extends BaseEntity {
                         // 무한 반복.. 방지
     private ProductDetail productDetail;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "provider_id")
     @ToString.Exclude
     private Provider provider;

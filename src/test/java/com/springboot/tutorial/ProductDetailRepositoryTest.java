@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
+
 @SpringBootTest
 public class ProductDetailRepositoryTest {
     @Autowired
@@ -18,6 +20,7 @@ public class ProductDetailRepositoryTest {
     ProductRepository productRepository;
 
     @Test
+    @Transactional
     @DisplayName("연관관계를 가진 엔티티를 조회하였을 때 Join 연산이 정상적으로 수행되어 결과를 반환한다.")
     public void saveAndReadTest1() {
         Product product = new Product();
