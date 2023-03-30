@@ -1,5 +1,6 @@
 package com.springboot.tutorial.dto;
 
+import com.springboot.tutorial.config.validate.Telephone;
 import com.springboot.tutorial.config.validate.ValidationGroup1;
 import com.springboot.tutorial.config.validate.ValidationGroup2;
 import lombok.*;
@@ -19,8 +20,7 @@ public class ValidatedRequestDto {
     @Email // 이메일 형식을 검사한다.
     String email;
 
-    // 정규식에 맞게 표현된 값으로 검증한다.
-    @Pattern(regexp = "01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$")
+    @Telephone
     String phoneNumber;
 
     // 최대/최소값을 검증한다.
