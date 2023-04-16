@@ -4,7 +4,7 @@ import com.springboot.tutorial.component.JwtTokenProvider;
 import com.springboot.tutorial.config.handler.CustomAccessDeniedHandler;
 import com.springboot.tutorial.config.handler.CustomAuthenticationEntryPoint;
 import com.springboot.tutorial.config.security.JwtAuthenticationFilter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,14 +15,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider jwtTokenProvider;
-
-    @Autowired
-    public SecurityConfiguration(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
 
     /**
      * JWT 토큰 인증 필터
@@ -59,6 +55,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring()
                 .antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html",
-                        "/webjars/**", "/swagger/**", "/sign-api/exception");
+                        "/webjars/**", "/swagger/**", "/sign-api/exception", "/api/v1/**", "/validation/**");
     }
 }

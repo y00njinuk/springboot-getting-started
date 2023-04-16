@@ -16,7 +16,7 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.springboot.api")) // Swagger에서 스캔할 패키지의 범위
+                .apis(RequestHandlerSelectors.basePackage("com.springboot.tutorial")) // Swagger에서 스캔할 패키지의 범위
                 .paths(PathSelectors.any())
                 .build();
     }
