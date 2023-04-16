@@ -1,0 +1,135 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is a Swagger API Document for tutorial",
+    "version" : "v1",
+    "title" : "Spring Boot Tutorial API Document",
+    "termsOfService" : "https://github.com/y00njinuk/springboot-getting-started",
+    "contact" : {
+      "name" : "Yoon Jin Uk",
+      "email" : "jinuknamja@gmail.com"
+    }
+  },
+  "tags" : [ {
+    "name" : "GetController",
+    "description" : "Operations about pets"
+  } ],
+  "paths" : {
+    "/api/v1/get-api/hello" : {
+      "get" : {
+        "tags" : [ "GetController" ],
+        "summary" : "GET 메서드 예제 (1)",
+        "description" : "기본적인 GET 메서드를 테스트한다.",
+        "operationId" : "getHello",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/get-api/request" : {
+      "get" : {
+        "tags" : [ "GetController" ],
+        "summary" : "GET 메서드 예제 (2)",
+        "description" : "@PathVariable을 활용한 GET 메서드를 테스트한다.",
+        "operationId" : "getRequestParam",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "GET 파라미터",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "Invalid user supplied"
+          },
+          "404" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/get-api/request2" : {
+      "get" : {
+        "tags" : [ "GetController" ],
+        "summary" : "GET 메서드 예제 (3)",
+        "description" : "@RequestParam을 활용한 GET 메서드를 테스트한다.",
+        "operationId" : "getRequestParams",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "GET 파라미터",
+          "required" : true,
+          "schema" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/get-api/request3" : {
+      "get" : {
+        "tags" : [ "GetController" ],
+        "summary" : "GET 메서드 예제 (4)",
+        "description" : "DTO을 활용한 GET 메서드를 테스트한다.",
+        "operationId" : "getRequestParamsToDto",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Member 정보",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/MemberDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/MemberDto"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "MemberDto" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "organization" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+== Definitions
+=== MemberDto
+[options="header"]
+|===
+|Name|Description|Required|Schema|Default
+|name||false|string|
+|email||false|string|
+|organization||false|string|
+|===
+

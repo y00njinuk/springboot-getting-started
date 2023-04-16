@@ -1,0 +1,19 @@
+= Spring Boot Tutorial API Document
+
+== Overview
+This is a Swagger API Document for tutorial
+
+=== Version information
+Version: v1
+
+=== Contact information
+Contact: Yoon Jin Uk
+Contact Email: jinuknamja@gmail.com
+
+Terms of service: https://github.com/y00njinuk/springboot-getting-started
+
+=== Tags
+
+* GetController: Operations about pets
+
+

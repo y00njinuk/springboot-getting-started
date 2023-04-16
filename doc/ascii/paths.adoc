@@ -1,0 +1,104 @@
+== Paths
+=== GET 메서드 예제 (1)
+----
+GET /api/v1/get-api/hello
+----
+
+==== Description
+:hardbreaks:
+기본적인 GET 메서드를 테스트한다.
+
+==== Responses
+[options="header"]
+|===
+|HTTP Code|Description|Schema
+|200|successful operation|string
+|===
+
+==== Tags
+
+* GetController
+
+=== GET 메서드 예제 (2)
+----
+GET /api/v1/get-api/request
+----
+
+==== Description
+:hardbreaks:
+@PathVariable을 활용한 GET 메서드를 테스트한다.
+
+==== Parameters
+[options="header"]
+|===
+|Type|Name|Description|Required|Schema|Default
+|BodyParameter|body|GET 파라미터|true|string|
+|===
+
+==== Responses
+[options="header"]
+|===
+|HTTP Code|Description|Schema
+|200|successful operation|string
+|400|Invalid user supplied|No Content
+|404|Internal Server Error|No Content
+|===
+
+==== Tags
+
+* GetController
+
+=== GET 메서드 예제 (3)
+----
+GET /api/v1/get-api/request2
+----
+
+==== Description
+:hardbreaks:
+@RequestParam을 활용한 GET 메서드를 테스트한다.
+
+==== Parameters
+[options="header"]
+|===
+|Type|Name|Description|Required|Schema|Default
+|BodyParameter|body|GET 파라미터|true|object|
+|===
+
+==== Responses
+[options="header"]
+|===
+|HTTP Code|Description|Schema
+|200|successful operation|string
+|===
+
+==== Tags
+
+* GetController
+
+=== GET 메서드 예제 (4)
+----
+GET /api/v1/get-api/request3
+----
+
+==== Description
+:hardbreaks:
+DTO을 활용한 GET 메서드를 테스트한다.
+
+==== Parameters
+[options="header"]
+|===
+|Type|Name|Description|Required|Schema|Default
+|BodyParameter|body|Member 정보|true|<<MemberDto>>|
+|===
+
+==== Responses
+[options="header"]
+|===
+|HTTP Code|Description|Schema
+|200|successful operation|<<MemberDto>>
+|===
+
+==== Tags
+
+* GetController
+
