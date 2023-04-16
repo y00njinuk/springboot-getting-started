@@ -15,7 +15,22 @@
     <description>springboot-getting-started</description>
     <properties>
         <java.version>11</java.version>
+        <jetty-version>9.0.7.v20131107</jetty-version>
+        <jersey2-version>2.4.1</jersey2-version>
     </properties>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>sonatype-snapshot</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -64,6 +79,33 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-core</artifactId>
+            <scope>compile</scope>
+            <version>1.5.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.ws.rs</groupId>
+                    <artifactId>jsr311-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet-core</artifactId>
+            <version>${jersey2-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>${jersey2-version}</version>
         </dependency>
 
         <!-- query dsl -->
@@ -152,11 +194,109 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <!-- create Swagger API Document (JSON) -->
+            <plugin>
+                <groupId>com.github.kongchen</groupId>
+                <artifactId>swagger-maven-plugin</artifactId>
+                <version>3.1.1</version>
                 <configuration>
-                    <generatedSourcesDirectory>src/main/generated</generatedSourcesDirectory>
+                    <apiSources>
+                        <apiSource>
+                            <springmvc>false</springmvc>
+                            <locations>com.springboot.tutorial.controller</locations>
+                            <info>
+                                <title>Spring Boot Tutorial API Document</title>
+                                <version>v1</version>
+                                <description>This is a Swagger API Document for tutorial</description>
+                                <termsOfService>
+                                    https://github.com/y00njinuk/springboot-getting-started
+                                </termsOfService>
+                                <contact>
+                                    <email>jinuknamja@gmail.com</email>
+                                    <name>Yoon Jin Uk</name>
+                                </contact>
+                            </info>
+                            <!-- Support classpath or file absolute path here.
+                            1) classpath e.g: "classpath:/markdown.hbs", "classpath:/templates/hello.html"
+                            2) file e.g: "${basedir}/src/main/resources/markdown.hbs",
+                                "${basedir}/src/main/resources/template/hello.html" -->
+                            <templatePath>${basedir}/templates/strapdown.html.hbs</templatePath>
+                            <!-- FIXME. HTML 변환 시 정상적으로 출력이 되지 않음 -->
+                            <outputPath>${basedir}/doc/html/document.html</outputPath>
+                            <swaggerDirectory>doc/swagger-ui</swaggerDirectory>
+                        </apiSource>
+                    </apiSources>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- create Swagger API Document (JSON->AsciiDoc) -->
+            <plugin>
+                <groupId>io.github.robwin</groupId>
+                <artifactId>swagger2markup-maven-plugin</artifactId>
+                <version>0.9.3</version>
+                <configuration>
+                    <inputDirectory>${basedir}/doc/swagger-ui</inputDirectory>
+                    <outputDirectory>${basedir}/doc/ascii</outputDirectory>
+                    <markupLanguage>asciidoc</markupLanguage>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>process-swagger</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- create Swagger API Document (AsciiDoc->PDF) -->
+            <plugin>
+                <!-- FIXME. PDF 변환 시 한글 폰트가 깨짐. -->
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>2.2.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj-pdf</artifactId>
+                        <version>1.6.0</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+
+                    <sourceDirectory>${basedir}/doc/ascii</sourceDirectory>
+                    <attributes>
+                        <doctype>book</doctype>
+                        <toc>left</toc>
+                        <toclevels>2</toclevels>
+                        <sectnums>true</sectnums>
+                        <generated>${basedir}/doc/ascii</generated>
+                    </attributes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>asciidoc-to-pdf</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <backend>pdf</backend>
+                            <outputDirectory>${basedir}/doc/pdf</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
-
 </project>
